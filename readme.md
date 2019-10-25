@@ -22,7 +22,7 @@ First let's create our Pawthentication Django project. Inside an activated virtu
 
 We are going to explore the default views provided by django. The authentication app is in `django.contrib.auth`. To use the app you need to make sure that you have it included in your `INSTALLED_APPS` settings. It is included by default when you create the project, so usually it looks like this by default,
 
-```
+```python
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -35,7 +35,7 @@ INSTALLED_APPS = [
 
 Now all we need to do to start using the auth app is to include its urls and define some templates. Let's start by adding the urls first. Open up the project `urls.py` file. It should look like this,
 
-```
+```python
 from django.contrib import admin
 from django.urls import path
 
@@ -46,7 +46,7 @@ urlpatterns = [
 
 Include the auth urls. We will also add a redirection to the user profile from the root. After the modification your `urls.py` should look like this,
 
-```
+```python
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import RedirectView
@@ -69,7 +69,7 @@ We will create a enw Django app for this. Let's call the app `accounts`.
 - Go ahead and run `python manage.py startapp accounts`.
 - Add this app to the list of your installed apps
 
-```
+```python
 INSTALLED_APPS = [
     ...
     'accounts',
@@ -78,7 +78,7 @@ INSTALLED_APPS = [
 
 - Create a view, we'll use a `TemplateView`
 
-```
+```python
 from django.views.generic import TemplateView
 
 
@@ -88,13 +88,13 @@ class UserProfile(TemplateView):
 
 - Update the projects `urls.py`, add the following to `urlpatterns`,
 
-```
+```python
 path('accounts/', include('accounts.urls')),
 ```
 
 - Create `accounts/urls.py` and add the following,
 
-```
+```python
 from django.urls import path
 
 from accounts.views import UserProfile
@@ -111,7 +111,7 @@ urlpatterns = [
 
 Django doesn't provide a `RegistrationView` out of the box, so we will create our own. For the view we'll use a `generic.CreateView` and `UserCreationForm`. The code for the view looks like this,
 
-```
+```python
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -133,7 +133,7 @@ Let's start by adding crispy forms to the project,
 - `pip install --upgrade django-crispy-forms`.
 - Add Crispy Forms to `INSTALLED_APPS`,
 
-```
+```python
 INSTALLED_APPS = [
     ...
     'crispy_forms',
@@ -149,7 +149,7 @@ Now we are all set to use Crispy Forms in our application. Let's create our regi
 - From project root create folders `templates/registration`.
 - Update `TEMPLATES['DIRS']` setting as follows
 
-```
+```python
 TEMPLATES = [
     {
         ...
@@ -167,7 +167,7 @@ TEMPLATES = [
 
 - Update `accounts.urls`,
 
-```
+```python
 from accounts.views import RegistrationView
 
 urlpatterns = [
@@ -182,7 +182,7 @@ If you look at the registration form, you'll see there's not much in it. All you
 
 Create a `forms.py` file inside the `accounts` app and add the following,
 
-```
+```python
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
@@ -195,7 +195,7 @@ class RegistrationForm(UserCreationForm):
 
 and update the `RegistrationView` as follows,
 
-```
+```python
 from accounts.forms import RegistrationForm
 
 class RegistrationView(CreateView):
@@ -209,7 +209,7 @@ Now if you refresh the page at [http://localhost:8000/accounts/register/](http:/
 
 Now let's add the templates for the rest of the Views. When we included the auth urls, i.e. `django.contrib.auth.urls` to our project `urlpatterns`, it included the following URL patterns for us,
 
-```
+```python
 accounts/login/ [name='login']
 accounts/logout/ [name='logout']
 accounts/password_change/ [name='password_change']
@@ -226,7 +226,7 @@ Amongst all these auth views, `PasswordResetView` works by sending a one time us
 
 To do this, add the following at the end of your `settings.py` file,
 
-```
+```python
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'emails')
 ```
