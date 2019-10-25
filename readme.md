@@ -221,3 +221,12 @@ accounts/reset/done/ [name='password_reset_complete']
 ```
 
 and we haven't worked on any of them yet. So, let's get started. Head over to the `templates/registration` folder and add all the templates one by one. Please refer to the repository for template codes.
+
+Amongst all these auth views, `PasswordResetView` works by sending a one time use link to User's registered email. We will therefore setup our application to be able to handle sending emails. We will not setup the application for sending real emails through smtp though that is possible and requires minimal setup. We opt for a file based email system, where all the emails sent by the server are saved as text files in a folder of our preference.
+
+To do this, add the following at the end of your `settings.py` file,
+
+```
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'emails')
+```
