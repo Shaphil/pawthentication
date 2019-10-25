@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block jumboheader %}{{ title }}{% endblock %}
+
+{% block content %}
+  <a class="btn btn-secondary" href="{% url 'login' %}">Login</a>
+  <a class="btn btn-outline-secondary" href="{% url 'register' %}">Register</a>
+{% endblock %}
