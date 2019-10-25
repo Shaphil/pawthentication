@@ -1,4 +1,4 @@
-# Pawthentication
+# Pawthentication (Default)
 
 This app explores the default authentication views provided by Django as is. The only modification is the addition of two views for handling User registration and profile.
 
@@ -177,3 +177,30 @@ urlpatterns = [
 ```
 
 Navigate to [http://localhost:8000/accounts/register/](http://localhost:8000/accounts/register/) and you should see a nice registration form.
+
+If you look at the registration form, you'll see there's not much in it. All you need to register is a username and a password. Adding in a email during registration will really be nice. Let's do that. We will create a form based on `UserCreationForm`, the form we are using now and then override the Meta class so that it includes the email field from the `User` model.
+
+Create a `forms.py` file inside the `accounts` app and add the following,
+
+```
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+
+class RegistrationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('username', 'email')
+```
+
+and update the `RegistrationView` as follows,
+
+```
+from accounts.forms import RegistrationForm
+
+class RegistrationView(CreateView):
+    form_class = RegistrationForm
+    ...
+```
+
+Now if you refresh the page at [http://localhost:8000/accounts/register/](http://localhost:8000/accounts/register/) you'll see an email field included in the registration form.
