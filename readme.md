@@ -204,3 +204,20 @@ class RegistrationView(CreateView):
 ```
 
 Now if you refresh the page at [http://localhost:8000/accounts/register/](http://localhost:8000/accounts/register/) you'll see an email field included in the registration form.
+
+### Rest of the templates
+
+Now let's add the templates for the rest of the Views. When we included the auth urls, i.e. `django.contrib.auth.urls` to our project `urlpatterns`, it included the following URL patterns for us,
+
+```
+accounts/login/ [name='login']
+accounts/logout/ [name='logout']
+accounts/password_change/ [name='password_change']
+accounts/password_change/done/ [name='password_change_done']
+accounts/password_reset/ [name='password_reset']
+accounts/password_reset/done/ [name='password_reset_done']
+accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
+accounts/reset/done/ [name='password_reset_complete']
+```
+
+and we haven't worked on any of them yet. So, let's get started. Head over to the `templates/registration` folder and add all the templates one by one. Please refer to the repository for template codes.
